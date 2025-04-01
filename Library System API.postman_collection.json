@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "c058bf93-eb60-41b2-881f-51841115eb9e",
-		"name": "Library System API",
+		"_postman_id": "88a841e6-5b65-4d4b-b774-0a5cc81cb0d4",
+		"name": "Library System API Copy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "36281417"
 	},
@@ -20,7 +20,7 @@
 									"basic": [
 										{
 											"key": "username",
-											"value": "librarian1",
+											"value": "librarian",
 											"type": "string"
 										},
 										{
@@ -68,7 +68,7 @@
 									"basic": [
 										{
 											"key": "username",
-											"value": "member1",
+											"value": "member",
 											"type": "string"
 										},
 										{
@@ -297,6 +297,105 @@
 					]
 				},
 				{
+					"name": "Search Books",
+					"item": [
+						{
+							"name": "Search for a Book (By Title)",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "member",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "password",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/api/books/search?keyword=clean code",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"books",
+										"search"
+									],
+									"query": [
+										{
+											"key": "keyword",
+											"value": "clean code"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Search for a Book (By Author)",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "member",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "password",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/api/books/search?keyword=robert",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"books",
+										"search"
+									],
+									"query": [
+										{
+											"key": "keyword",
+											"value": "robert"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "Delete Books",
 					"item": [
 						{
@@ -384,20 +483,43 @@
 					]
 				},
 				{
-					"name": "Search Books",
+					"name": "Add Books - Test one more time before moving to Borrow Controller",
 					"item": [
 						{
-							"name": "Search for a Book (By Title)",
+							"name": "Add Book (Librarian)",
 							"request": {
-								"method": "GET",
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "librarian",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "password",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
 								"header": [
 									{
 										"key": "Content-Type",
 										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic bGlicmFyaWFuOnBhc3N3b3Jk"
 									}
 								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"Clean Code\",\n    \"author\": \"Robert Cecil Martin\",\n    \"isbn\": \"12345678902\",\n    \"publicationYear\": 2008\n}"
+								},
 								"url": {
-									"raw": "http://localhost:8080/api/books/search",
+									"raw": "http://localhost:8080/api/books",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -405,25 +527,47 @@
 									"port": "8080",
 									"path": [
 										"api",
-										"books",
-										"search"
+										"books"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Search for a Book (By Author)",
+							"name": "Add Book (Member - Forbidden)",
 							"request": {
-								"method": "GET",
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "member",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "password",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
 								"header": [
 									{
 										"key": "Content-Type",
 										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic bGlicmFyaWFuOnBhc3N3b3Jk"
 									}
 								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"Clean Code\",\n    \"author\": \"Robert Cecil Martin\",\n    \"isbn\": \"12345678902\",\n    \"publicationYear\": 2008\n}"
+								},
 								"url": {
-									"raw": "http://localhost:8080/api/books/search",
+									"raw": "http://localhost:8080/api/books",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -431,8 +575,7 @@
 									"port": "8080",
 									"path": [
 										"api",
-										"books",
-										"search"
+										"books"
 									]
 								}
 							},
@@ -474,7 +617,7 @@
 									}
 								],
 								"url": {
-									"raw": "http://localhost:8080/api/borrow/checkout?memberId=1&bookId=1&librarianId=1",
+									"raw": "http://localhost:8080/api/borrow/checkout?memberId=2&bookId=2&librarianId=1",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -488,15 +631,18 @@
 									"query": [
 										{
 											"key": "memberId",
-											"value": "1"
+											"value": "2",
+											"description": "user ID of user with role member"
 										},
 										{
 											"key": "bookId",
-											"value": "1"
+											"value": "2",
+											"description": "book ID"
 										},
 										{
 											"key": "librarianId",
-											"value": "1"
+											"value": "1",
+											"description": "user ID of user with role librarian"
 										}
 									]
 								}
@@ -586,7 +732,7 @@
 									}
 								],
 								"url": {
-									"raw": "http://localhost:8080/api/borrow/history/member/1",
+									"raw": "http://localhost:8080/api/borrow/history/member/2",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -597,7 +743,7 @@
 										"borrow",
 										"history",
 										"member",
-										"1"
+										"2"
 									]
 								}
 							},
@@ -629,7 +775,7 @@
 									}
 								],
 								"url": {
-									"raw": "http://localhost:8080/api/borrow/history/member/1",
+									"raw": "http://localhost:8080/api/borrow/history/member/2",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -640,7 +786,7 @@
 										"borrow",
 										"history",
 										"member",
-										"1"
+										"2"
 									]
 								}
 							},
@@ -672,7 +818,7 @@
 									}
 								],
 								"url": {
-									"raw": "http://localhost:8080/api/borrow/history/book/1",
+									"raw": "http://localhost:8080/api/borrow/history/book/2",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -683,7 +829,7 @@
 										"borrow",
 										"history",
 										"book",
-										"1"
+										"2"
 									]
 								}
 							},
@@ -715,7 +861,7 @@
 									}
 								],
 								"url": {
-									"raw": "http://localhost:8080/api/borrow/history/book/1",
+									"raw": "http://localhost:8080/api/borrow/history/book/2",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -726,7 +872,7 @@
 										"borrow",
 										"history",
 										"book",
-										"1"
+										"2"
 									]
 								}
 							},

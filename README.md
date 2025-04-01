@@ -211,10 +211,12 @@ All the necessary API body, parameters, authorization is included in the postman
         - `GET /api/books/{id}` – View a single book by ID
     - `Update Books`
         - `PUT /api/books/{id}` – Update a book (LIBRARIAN only)
-    - `Delete Books`
-        - `DELETE /api/books/{id}` – Delete a book (LIBRARIAN only)
     - `Search Books`
         - `GET /api/books/search?keyword` - Search books by title or author
+    - `Delete Books`
+        - `DELETE /api/books/{id}` – Delete a book (LIBRARIAN only)
+    - `Add Books`
+        - `POST /api/books` – Test this endpoint one more time so that we can test borrow controller 
 
 3. BorrowController
     - `Borrow Books`
