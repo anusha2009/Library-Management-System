@@ -14,6 +14,7 @@ A role-based RESTful Library Management System built with **Java 21**, **Spring 
 - [Database & Data Persistence](#database--data-persistence)
 - [Postman Collection](#postman-collection)
 - [Setup Instructions](#setup-instructions)
+- [Documentation](#documentation)
 - [Future Improvements](#future-improvements)
 
 ## Features
@@ -226,6 +227,10 @@ All the necessary API body, parameters, authorization is included in the postman
     - `Get Borrow Records`
         - `GET /api/borrow/history/book/{bookId}` - Borrow history of a book (LIBRARIAN only)
         - `GET /api/borrow/history/member/{memberId}` - Borrow history of a member (LIBRARIAN only)
+
+## Documentation 
+
+- The documentation of the project is added [here](./LibraryManagementSystem.pdf)
 
 ## Future Improvements
 
