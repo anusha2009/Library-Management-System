@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: librarysystem-app
+    ports:
+      - "8080:8080"
+    volumes:
+      - h2-data:/app/data
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:h2:file:./data/librarydb
+      - SPRING_H2_CONSOLE_ENABLED=true
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_DATASOURCE_USERNAME=sa
+      - SPRING_DATASOURCE_PASSWORD=
+    depends_on:
+      - h2db
+
+  h2db:
+    image: oscarfonts/h2
+    container_name: h2-console
+    ports:
+      - "1521:1521"
+      - "81:81"
+
+volumes:
+  h2-data:
+
+

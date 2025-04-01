@@ -1,0 +1,24 @@
+# Java / Maven
+target/
+*.log
+*.class
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+
+# OS
+.DS_Store
+
+# Environment
+.env
+
+# H2 DB
+/data/
+/h2/
+
+# Docker
+*.pid
