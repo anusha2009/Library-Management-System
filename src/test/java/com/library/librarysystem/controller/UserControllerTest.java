@@ -34,8 +34,8 @@ class UserControllerTest {
 
     @BeforeEach
     void setUp() {
-        member = new User(1L, "member", "pass", "member@mail.com", "First", "Last", "1234567890", "ROLE_MEMBER");
-        librarian = new User(2L, "librarian", "pass", "librarian@mail.com", "First", "Last", "1234567890", "ROLE_LIBRARIAN");
+        member = new User(1L, "member", "password", "member@mail.com", "First", "Last", "1234567890", "ROLE_MEMBER");
+        librarian = new User(2L, "librarian", "password", "librarian@mail.com", "First", "Last", "1234567890", "ROLE_LIBRARIAN");
     }
 
     @Test

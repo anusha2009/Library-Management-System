@@ -5,16 +5,16 @@ A role-based RESTful Library Management System built with **Java 21**, **Spring 
 
 ## Table of Contents
 
-- [Features](#-features)
-- [Architecture & Design](#-architecture--design)
-- [Technologies Used](#-technologies-used)
-- [API Endpoints](#-api-endpoints)
-- [Testing](#-testing)
-- [Security](#-security)
-- [Database & Data Persistence](#-database--data-persistence)
-- [Postman Collection](#-postman-collection)
-- [Setup Instructions](#-setup-instructions)
-- [Future Improvements](#-future-improvements)
+- [Features](#features)
+- [Architecture & Design](#architecture--design)
+- [Technologies Used](#technologies-used)
+- [API Endpoints](#api-endpoints)
+- [Testing](#testing)
+- [Security](#security)
+- [Database & Data Persistence](#database--data-persistence)
+- [Postman Collection](#postman-collection)
+- [Setup Instructions](#setup-instructions)
+- [Future Improvements](#future-improvements)
 
 ## Features
 
@@ -153,11 +153,11 @@ Role-based access control is enforced via **Spring Security**:
 
 ## Postman Collection
 
-[Download here](./Library System API.postman_collection.json)
+[Download here](./Library%20System%20API.postman_collection.json)
 
 - Includes **all endpoints**
 - Authorization via Basic Auth
-- Sample bodies for all API endpoints.
+- Sample bodies for all API endpoints
 
 ## Setup Instructions
 
@@ -185,11 +185,16 @@ docker compose up --build
 | App         | http://localhost:8080                   |
 | H2 Console  | http://localhost:8080/h2-console        |
 
+- H2 Console credentials:
+    - JDBC URL : jdbc:h2:file:./data/librarydb
+    - Username : sa
+    - Password : (leave blank)
+
 Data is persisted using a named Docker volume `h2-data`.
 
 ### 5. Test APIs
 
-Test all APIs using the Postman Collection added [here](./Library System API.postman_collection.json)
+Test all APIs using the Postman Collection added [here](./Library%20System%20API.postman_collection.json)
 
 All the necessary API body, parameters, authorization is included in the postman collection and this is the flow of testing the APIs:
 

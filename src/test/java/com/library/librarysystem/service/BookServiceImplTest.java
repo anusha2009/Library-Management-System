@@ -31,9 +31,7 @@ class BookServiceImplTest {
     @Test
     void testAddBook() {
         Book book = new Book(null, "Java Tutorial", "John Doe", "15234", 2015, true);
-
         when(bookRepository.save(book)).thenReturn(book);
-
         Book result = bookService.addBook(book);
 
         assertNotNull(result);
@@ -42,11 +40,9 @@ class BookServiceImplTest {
     }
 
     @Test
-    void testGetBookById_BookExists() {
+    void testGetBookById() {
         Book book = new Book(1L, "Clean Code", "Robert Martin", "12345", 2005, true);
-
         when(bookRepository.findById(1L)).thenReturn(Optional.of(book));
-
         Book result = bookService.getBookById(1L);
 
         assertEquals(1L, result.getId());
@@ -54,9 +50,8 @@ class BookServiceImplTest {
     }
 
     @Test
-    void testGetBookById_NotFound() {
+    void testGetBookByIdException() {
         when(bookRepository.findById(2L)).thenReturn(Optional.empty());
-
         assertThrows(EntityNotFoundException.class, () -> bookService.getBookById(2L));
     }
 
@@ -70,6 +65,16 @@ class BookServiceImplTest {
 
         assertEquals(1, result.size());
         assertEquals("Python Tutorial", result.get(0).getTitle());
+    }
+
+    @Test
+    void testGetAllBooks() {
+        List<Book> books = List.of(new Book(1L, "Clean Code", "Robert Martin", "12345", 2005, true));
+        when(bookRepository.findAll()).thenReturn(books);
+        List<Book> result = bookService.getAllBooks();
+
+        assertEquals(1, result.size());
+        assertEquals("Clean Code", result.get(0).getTitle());
     }
 
     @AfterEach

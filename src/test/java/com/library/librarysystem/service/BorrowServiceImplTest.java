@@ -33,7 +33,7 @@ class BorrowServiceImplTest {
     }
 
     @Test
-    void borrowBook_shouldSucceed() {
+    void testBorrowBook() {
         Book book = new Book(1L, "Test Book", "Author", "123", 2020, true);
         User member = new User(null, "alice", "securepass", "Alice", "Smith", "alice@mail.com", "1234567890", "ROLE_MEMBER");
         User librarian = new User(null, "alice", "securepass", "Alice", "Smith", "alice@mail.com", "1234567890", "ROLE_LIBRARIAN");
@@ -52,7 +52,7 @@ class BorrowServiceImplTest {
     }
 
     @Test
-    void returnBook_shouldSucceed() {
+    void testReturnBook() {
         Book book = new Book(1L, "Book", "Author", "123", 2020, false);
         User member = new User(null, "alice", "securepass", "Alice", "Smith", "alice@mail.com", "1234567890", "ROLE_MEMBER");
         User librarian = new User(null, "alice", "securepass", "Alice", "Smith", "alice@mail.com", "1234567890", "ROLE_LIBRARIAN");
@@ -71,7 +71,7 @@ class BorrowServiceImplTest {
 
 
     @Test
-    void borrowBook_shouldFailIfBookUnavailable() {
+    void testBorrowBookException() {
         Book book = new Book(1L, "Book", "Author", "123", 2020, false);
         User member = new User(null, "alice", "securepass", "Alice", "Smith", "alice@mail.com", "1234567890", "ROLE_MEMBER");
         User librarian = new User(null, "alice", "securepass", "Alice", "Smith", "alice@mail.com", "1234567890", "ROLE_LIBRARIAN");
@@ -81,5 +81,47 @@ class BorrowServiceImplTest {
         when(bookRepository.findById(1L)).thenReturn(Optional.of(book));
 
         assertThrows(IllegalStateException.class, () -> borrowService.borrowBook(1L, 1L, 2L));
+    }
+
+    @Test
+    void testReturnBookException() {
+        Book book = new Book(1L, "Book", "Author", "123", 2020, false);
+        User member = new User(null, "alice", "securepass", "Alice", "Smith", "alice@mail.com", "1234567890", "ROLE_MEMBER");
+        User librarian = new User(null, "bob", "securepass", "Bob", "Brown", "bob@mail.com", "1234567891", "ROLE_LIBRARIAN");
+
+        BorrowRecord record = new BorrowRecord(true, 1L, member, librarian, book, LocalDate.now().minusDays(2), LocalDate.now(), BorrowRecord.Status.RETURNED);
+        when(borrowRecordRepository.findById(1L)).thenReturn(Optional.of(record));
+
+        assertThrows(IllegalStateException.class, () -> borrowService.returnBook(1L));
+    }
+
+    @Test
+    void testGetBorrowHistoryByBook() {
+        Book book = new Book(1L, "Test Book", "Author", "123", 2020, true);
+        BorrowRecord record = new BorrowRecord();
+        record.setBook(book);
+
+        when(bookRepository.findById(1L)).thenReturn(Optional.of(book));
+        when(borrowRecordRepository.findByBook(book)).thenReturn(List.of(record));
+
+        List<BorrowRecord> results = borrowService.getBorrowHistoryByBook(1L);
+
+        assertEquals(1, results.size());
+        assertEquals(book, results.get(0).getBook());
+    }
+
+    @Test
+    void testGetBorrowHistoryByMember() {
+        User member = new User(null, "alice", "securepass", "Alice", "Smith", "alice@mail.com", "1234567890", "ROLE_MEMBER");
+        BorrowRecord record = new BorrowRecord();
+        record.setMember(member);
+
+        when(userRepository.findById(1L)).thenReturn(Optional.of(member));
+        when(borrowRecordRepository.findByMember(member)).thenReturn(List.of(record));
+
+        List<BorrowRecord> results = borrowService.getBorrowHistoryByMember(1L);
+
+        assertEquals(1, results.size());
+        assertEquals(member, results.get(0).getMember());
     }
 }

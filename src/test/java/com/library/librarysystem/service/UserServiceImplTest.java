@@ -27,9 +27,9 @@ class UserServiceImplTest {
     }
 
     @Test
-    void testRegisterUser_success() {
-        User newUser = new User(null, "newuser", "plainpass", "email@mail.com", "First", "Last", "1234567890", "ROLE_MEMBER");
-        User savedUser = new User(1L, "newuser", "encodedpass", "email@mail.com", "First", "Last", "1234567890", "ROLE_MEMBER");
+    void testRegisterUser() {
+        User newUser = new User(null, "newuser", "plainpass", "user@mail.com", "First", "Last", "1234567890", "ROLE_MEMBER");
+        User savedUser = new User(1L, "newuser", "encodedpass", "user@mail.com", "First", "Last", "1234567890", "ROLE_MEMBER");
 
         when(userRepository.existsByUsername("newuser")).thenReturn(false);
         when(passwordEncoder.encode("plainpass")).thenReturn("encodedpass");
@@ -42,10 +42,9 @@ class UserServiceImplTest {
     }
 
     @Test
-    void testRegisterUser_duplicateUsername() {
+    void testRegisterUserException() {
         when(userRepository.existsByUsername("duplicate")).thenReturn(true);
-
-        User duplicateUser = new User(null, "duplicate", "pass", "dup@mail.com", "First", "Last", "1234567890", "ROLE_MEMBER");
+        User duplicateUser = new User(null, "duplicate", "pass", "duplicate@mail.com", "First", "Last", "1234567890", "ROLE_MEMBER");
 
         assertThrows(IllegalArgumentException.class, () -> userService.registerUser(duplicateUser));
     }
