@@ -36,7 +36,7 @@ This application is structured using a standard **layered architecture**:
 - **Controller Layer**: REST API endpoints for interaction
 - **Service Layer**: Business logic and rule enforcement
 - **Repository Layer**: Interacts with the database using Spring Data JPA
-- **Entity Layer**: Core domain models representing Users, Books, and Borrow Records
+- **Model Layer**: Core domain models representing Users, Books, and Borrow Records
 
 
 ### Entities
@@ -74,7 +74,7 @@ Relationships:
 
 ### BorrowRecord
 
-Logs each borrowing event, tying together a **member**, a **book**, and a **librarian** who facilitated the action.
+Logs each borrowing event, tying together a **member**, a **book**, and a **librarian**.
 
 Key Fields:
 - `member`: the user who borrows the book
