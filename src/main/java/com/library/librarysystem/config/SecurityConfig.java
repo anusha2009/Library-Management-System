@@ -49,6 +49,7 @@ public class SecurityConfig {
         http.csrf().disable()
             .headers(headers -> headers.frameOptions().disable())
             .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/", "/index.html").permitAll() 
                 .requestMatchers("/h2-console/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/books").hasRole("LIBRARIAN")
                 .requestMatchers(HttpMethod.PUT, "/api/books/**").hasRole("LIBRARIAN")
