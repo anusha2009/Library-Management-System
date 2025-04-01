@@ -200,8 +200,8 @@ All the necessary API body, parameters, authorization is included in the postman
 
 1. UserController:
     - `Register Users`
-        - `POST /register/member` – Register a Member user
         - `POST /register/librarian` – Register a Librarian user
+        - `POST /register/member` – Register a Member user
 
 2. BookController:
     - `Add Books`
