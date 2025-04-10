@@ -2,6 +2,8 @@ package com.library.librarysystem.controller;
 
 import com.library.librarysystem.model.User;
 import com.library.librarysystem.service.UserService;
+import com.library.librarysystem.dto.UserDTO;
+import com.library.librarysystem.mapper.UserMapper;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,15 +18,17 @@ public class UserController {
 
     // Register a new Member
     @PostMapping("/member")
-    public ResponseEntity<User> registerMember(@Valid @RequestBody User user) {
+    public ResponseEntity<UserDTO> registerMember(@Valid @RequestBody User user) {
         user.setRole("ROLE_MEMBER");
-        return ResponseEntity.ok(userService.registerUser(user));
+        User saved = userService.registerUser(user);
+        return ResponseEntity.ok(UserMapper.convertToDTO(saved));
     }
 
     // Register a new Librarian
     @PostMapping("/librarian")
-    public ResponseEntity<User> registerLibrarian(@Valid @RequestBody User user) {
+    public ResponseEntity<UserDTO> registerLibrarian(@Valid @RequestBody User user) {
         user.setRole("ROLE_LIBRARIAN");
-        return ResponseEntity.ok(userService.registerUser(user));
+        User saved = userService.registerUser(user);
+        return ResponseEntity.ok(UserMapper.convertToDTO(saved));
     }
 }
