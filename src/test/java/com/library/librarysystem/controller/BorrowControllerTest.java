@@ -8,6 +8,7 @@ import com.library.librarysystem.model.User;
 import com.library.librarysystem.security.CustomUserDetailsService;
 import com.library.librarysystem.service.BorrowService;
 import com.library.librarysystem.service.UserService;
+import com.library.librarysystem.util.AuthUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -39,6 +40,9 @@ class BorrowControllerTest {
 
     @MockBean
     private UserService userService;
+
+    @MockBean
+    private AuthUtil authUtil;
 
     @MockBean
     private CustomUserDetailsService userDetailsService;

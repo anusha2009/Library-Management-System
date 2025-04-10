@@ -7,6 +7,8 @@ import com.library.librarysystem.model.User;
 import com.library.librarysystem.security.CustomUserDetailsService;
 import com.library.librarysystem.service.BookService;
 import com.library.librarysystem.service.UserService;
+import com.library.librarysystem.util.AuthUtil;
+import com.library.librarysystem.util.AuthKeyGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -39,6 +41,12 @@ public class BookControllerTest {
     private UserService userService;
 
     @MockBean
+    private AuthUtil authUtil;
+
+    @MockBean
+    private AuthKeyGenerator authKeyGenerator;
+
+    @MockBean
     private CustomUserDetailsService customUserDetailsService;
 
     @Autowired
@@ -53,6 +61,7 @@ public class BookControllerTest {
         sampleBook = new Book(1L, "Book Title", "Author Name", "ISBN123", 2024, true);
 
         when(userService.findByUsername("librarian")).thenReturn(librarian);
+        when(authUtil.getCurrentUser()).thenReturn(librarian);
     }
 
     @Test

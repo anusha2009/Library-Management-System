@@ -4,6 +4,7 @@ import com.library.librarysystem.model.BorrowRecord;
 import com.library.librarysystem.service.BorrowService;
 import com.library.librarysystem.model.User;
 import com.library.librarysystem.service.UserService;
+import com.library.librarysystem.util.AuthUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -22,14 +23,11 @@ public class BorrowController {
     private UserService userService;
 
     @Autowired
+    private AuthUtil authUtil;
+
+    @Autowired
     public BorrowController(BorrowService borrowService) {
         this.borrowService = borrowService;
-    }
-
-    // Get current authenticated user
-    private User getCurrentUser() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return userService.findByUsername(auth.getName());
     }
 
     // Borrow a book (accessible by both Member and Librarian)
@@ -51,7 +49,7 @@ public class BorrowController {
     // Get borrow history by member (accessible only by Librarian)
     @GetMapping("/history/member/{memberId}")
     public ResponseEntity<List<BorrowRecord>> getHistoryByMember(@PathVariable Long memberId) {
-        User currentUser = getCurrentUser();
+        User currentUser = authUtil.getCurrentUser();
         if (!currentUser.isLibrarian()) {
            return ResponseEntity.status(403).build();
         }
@@ -61,7 +59,7 @@ public class BorrowController {
     // Get borrow history by book (accessible only by Librarian)
     @GetMapping("/history/book/{bookId}")
     public ResponseEntity<List<BorrowRecord>> getHistoryByBook(@PathVariable Long bookId) {
-        User currentUser = getCurrentUser();
+        User currentUser = authUtil.getCurrentUser();
         if (!currentUser.isLibrarian()) {
            return ResponseEntity.status(403).build();
         }
